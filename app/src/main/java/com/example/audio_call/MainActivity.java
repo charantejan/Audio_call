@@ -17,6 +17,13 @@ public class MainActivity extends AppCompatActivity {
     public void callClicked(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, createRoom.class);
+        intent.putExtra("CorJ", "C");
+        startActivity(intent);
+    }
+
+    public void joinClicked(View view) {
+        Intent intent = new Intent(this, createRoom.class);
+        intent.putExtra("CorJ", "J");
         startActivity(intent);
     }
 }

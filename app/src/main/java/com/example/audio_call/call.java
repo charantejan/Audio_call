@@ -32,22 +32,28 @@ public class call extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call);
         Intent extras=getIntent();
-        host = extras.getIntExtra("port", 0);
+        host = extras.getIntExtra("port", 0); //Get the port number
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
+                Manifest.permission.RECORD_AUDIO) //Permission for using mic
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.RECORD_AUDIO},
                     1234);
         }
+        while (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO) //Permission for using mic
+                != PackageManager.PERMISSION_GRANTED){}
+        //Use the helper functions from AudioCall.java
         call = new AudioCall(host, true, getApplicationContext());
         Log.d("port123", String.valueOf(host));
-        call.startCall();
+        call.startCall(); //Start the call
+        //Check if endcall is clicked
         check();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Menu for leave call/End call
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.tcp_udp, menu);
         return true;
@@ -65,17 +71,17 @@ public class call extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         thread.start();
     }
 
-    public void mutemic(View view){
+    public void mutemic(View view){ //Mute and unmute mic
         ImageView mic_image = findViewById(R.id.mic);
         String tag = (String) mic_image.getTag();
         Log.d("myTag", tag);
         if( tag.equals("mute") ) {
-            call.unmuteMic();
+            call.muteMic();
             mic_image.setImageResource(R.drawable.unmute);
             mic_image.setTag("unmute");
         }
         else{
-            call.muteMic();
+            call.unmuteMic();
             mic_image.setImageResource(R.drawable.mute);
             mic_image.setTag("mute");
         }
@@ -98,6 +104,7 @@ public class call extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 startActivity(intent);
                 return true;
             case R.id.End_call:
+                //Should implement
                 return true;
             default:
                 return false;

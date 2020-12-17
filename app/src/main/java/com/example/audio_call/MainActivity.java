@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void callClicked(View view) {
         // Do something in response to button
+        Log.d("testing", "here123");
         Intent intent = new Intent(this, createRoom.class);
         intent.putExtra("CorJ", "C");
         startActivity(intent);
